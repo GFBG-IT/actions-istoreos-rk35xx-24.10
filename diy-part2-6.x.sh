@@ -17,20 +17,21 @@ cp -a $GITHUB_WORKSPACE/configfiles/etc/* package/base-files/files/etc/
 # ls package/base-files/files/etc/
 
 
-# 追加自定义内核配置项
+# 追加自定义内核配置项（适配 Amlogic）
 echo "CONFIG_PSI=y
-CONFIG_KPROBES=y" >> target/linux/rockchip/armv8/config-6.6
+CONFIG_KPROBES=y" >> target/linux/amlogic/meson/config-6.6
 
 
-# 集成CPU性能跑分脚本
+# 集成CPU性能跑分脚本（N1 为 aarch64，arm64 二进制通常兼容）
 cp -f $GITHUB_WORKSPACE/configfiles/coremark/coremark-arm64 package/base-files/files/bin/coremark-arm64
 cp -f $GITHUB_WORKSPACE/configfiles/coremark/coremark-arm64.sh package/base-files/files/bin/coremark.sh
 chmod 755 package/base-files/files/bin/coremark-arm64
 chmod 755 package/base-files/files/bin/coremark.sh
 
 
-# 复制dts设备树文件到指定目录下
-cp -a $GITHUB_WORKSPACE/configfiles/dts/rk3588/* target/linux/rockchip/dts/rk3588/
+# 复制dts设备树文件到指定目录下（适配斐讯 N1）
+mkdir -p target/linux/amlogic/dts/phicomm-n1
+cp -a $GITHUB_WORKSPACE/configfiles/dts/phicomm-n1.dts target/linux/amlogic/dts/phicomm-n1/
 
 
 # iStoreOS-settings
